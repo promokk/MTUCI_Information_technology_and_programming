@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Архив статей</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/static/css/article.css">
+</head>
+<body class="archive">
+    <div class="header">
+        <img src="https://krot.info/uploads/posts/2022-03/1646772961_63-krot-info-p-sovremennie-memi-smeshnie-foto-69.jpg"
+            style="height:300px"/>
+            {% if user.is_authenticated %}
+            <div class="back-button"><a href="/article/new/">Новая запись</a></div>
+            {% endif %}
+    </div>
+    <div class="archive">
+        {% for post in posts %}
+        <div class="post-title">
+            <h2><a href="article/{{post.id}}">{{ post.title }}</a></h2>
+            <div class="article-info">
+                <div class="article-author">{{ post.author.username }}</div>
+                <div class="article-created-date">{{ post.created_date }}</div>
+            </div>
+            <p class="article-text">{{ post.get_excerpt }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+{% endblock %}
